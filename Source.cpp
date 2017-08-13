@@ -90,7 +90,8 @@ int getUserChoice() {
 }
 
 //Read in entry as date, sign, amt, bank, cat, subcat
-void readEntry(int row);
+void readEntry(int row, string &bank, string &cat, 
+				string &subcat, int &date, int &sign, double &amt);
 
 //Extract month, day, and year from MMDDYYYY
 void distillDate(int date) {
@@ -112,7 +113,21 @@ void distillDate(int date) {
 
 int main()
 {
-	readEntry(5);
+	//Variables for entry components
+	int date = 0, sign = 0;
+	double amt = 0;
+	string bank = "", cat = "", subcat = "";
+
+	//Variables for date components
+	int mn = 0, day = 0, yr = 0;
+
+	int userMn = 0, userYr = 0, startDay = 0, startMonth = 0;
+	int startYear = 0, endDay = 0, endMonth = 0, endYear = 0;
+
+	//To read over punctuation in inputted dates
+	char skip;
+
+	readEntry(5, bank, cat, subcat, date, sign, amt);
 
 	int userChoice = 1;
 	while (userChoice != 0) {
@@ -139,20 +154,6 @@ int main()
 		//Print menu and get user choice
 		userChoice = getUserChoice();
 
-		//Variables for entry components
-		int date = 0, sign = 0;
-		double amt = 0;
-		string bank = "", cat = "", subcat = "";
-
-		//Variables for date components
-		int mn = 0, day = 0, yr = 0;
-
-		int userMn = 0, userYr = 0, startDay = 0, startMonth = 0;
-		int startYear = 0, endDay = 0, endMonth = 0, endYear = 0;
-
-		//To read over punctuation in inputted dates
-		char skip;
-
 		//Monthly
 		if (userChoice == 1) {
 
@@ -166,7 +167,7 @@ int main()
 			double mnInTotal = 0;
 
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				distillDate(date);
 				if (yr == userYr && mn == userMn && sign == 1) {
 					mnInTotal += amt;
@@ -182,7 +183,7 @@ int main()
 			double mnOutTotal = 0;
 
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				distillDate(date);
 				if (yr == userYr && mn == userMn && sign == -1) {
 					mnOutTotal += amt;
@@ -200,7 +201,7 @@ int main()
 			double mnHousing = 0, mnFood = 0, mnUtilities = 0, mnHousehold = 0, mnMedical = 0;
 
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				distillDate(date);
 				if (yr == userYr && mn == userMn && sign == -1) {
 					if (cat == "Housing") {
@@ -246,7 +247,7 @@ int main()
 			double yrInTotal = 0;
 
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				distillDate(date);
 				if (yr == userYr && sign == 1) {
 					yrInTotal += amt;
@@ -262,7 +263,7 @@ int main()
 			double yrOutTotal = 0;
 
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				distillDate(date);
 				if (yr == userYr && sign == -1) {
 					yrOutTotal += amt;
@@ -279,7 +280,7 @@ int main()
 			double yrHousing = 0, yrFood = 0, yrUtilities = 0, yrHousehold = 0, yrMedical = 0;
 
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				distillDate(date);
 				if (yr == userYr && sign == -1) {
 					if (cat == "Housing") {
@@ -327,7 +328,7 @@ int main()
 			double tsInTotal = 0;
 
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				distillDate(date);
 				if (yr >= startYear && yr <= endYear && sign == 1) {
 					if (mn >= startMonth && mn <= endMonth) {
@@ -348,7 +349,7 @@ int main()
 			double tsOutTotal = 0;
 
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				distillDate(date);
 				if (yr >= startYear && yr <= endYear && sign == -1) {
 					if (mn >= startMonth && mn <= endMonth) {
@@ -370,7 +371,7 @@ int main()
 			double tsHousing = 0, tsFood = 0, tsUtilities = 0, tsHousehold = 0, tsMedical = 0;
 
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				distillDate(date);
 				if (yr >= startYear && yr <= endYear && sign == -1) {
 					if (mn >= startMonth && mn <= endMonth) {
@@ -417,7 +418,7 @@ int main()
 			int counter = 0;
 
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				distillDate(date);
 				for (int month = 01; month <= 12; ++month) {
 					if (mn == month && sign == -1) {
@@ -442,7 +443,7 @@ int main()
 			counter = 0;
 
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				distillDate(date);
 				for (int month = 01; month <= 12; ++month) {
 					if (mn == month && sign == -1) {
@@ -467,7 +468,7 @@ int main()
 			counter = 0;
 
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				distillDate(date);
 				for (int month = 01; month <= 12; ++month) {
 					if (mn == month && sign == -1) {
@@ -492,7 +493,7 @@ int main()
 			counter = 0;
 
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				distillDate(date);
 				for (int month = 01; month <= 12; ++month) {
 					if (mn == month && sign == -1) {
@@ -517,7 +518,7 @@ int main()
 			counter = 0;
 
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				distillDate(date);
 				for (int month = 01; month <= 12; ++month) {
 					if (mn == month && sign == -1) {
@@ -546,7 +547,7 @@ int main()
 			int counter = 0;
 
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				distillDate(date);
 				if (cat == userCat && sign == -1) {
 					yrOutAvg_userCat += amt;
@@ -561,7 +562,7 @@ int main()
 			counter = 0;
 
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				distillDate(date);
 				for (int month = 01; month <= 12; ++month) {
 					if (mn == month && sign == -1) {
@@ -585,7 +586,7 @@ int main()
 			double balance_Citi = 0, balance_WF = 0, balance_TCF = 0;
 
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				if (bank == "Citi") {
 					balance_Citi += (sign * amt);
 				}
@@ -613,7 +614,7 @@ int main()
 			cin >> userMonth >> skip >> userDay >> skip >> userYear;
 
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				distillDate(date);
 				if (mn <= userMonth && yr <= userYear && day <= userDay) {
 					if (bank == "Citi") {
@@ -641,7 +642,7 @@ int main()
 		if (userChoice == 8) {
 			cout << "Categories are: " << endl;
 			for (int row = 1; row <= end; ++row) {
-				readEntry(row);
+				readEntry(row, bank, cat, subcat, date, sign, amt);
 				string cat2 = "cat2";
 				if (cat != cat2) {
 					cout << "    - " << cat << endl;
@@ -658,11 +659,11 @@ int main()
 	return 0;
 }
 
-void readEntry(int row) {
-	string origDate, bank, cat, subcat;
-	int date, sign;
+void readEntry(int row, string &bank, string &cat, 
+				string &subcat, int &date, int &sign, double &amt) {
+	//Declare temporary variables
 	char origDW = 0;
-	double amt = 0;
+	string origDate = "";
 
 	//To skip over commas in .csv
 	char comma;
