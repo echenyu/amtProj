@@ -157,68 +157,38 @@ int main()
 			//User inputs desired month as MM / YYYY
 			cout << "Input the month you would like to see as MM/YYYY" << endl;
 			cin >> userMn >> skip >> userYr;
-
 			cout << endl;
 
-			//Calculate total monthly income
-			double mnInTotal = 0;
-
-			for (int row = 1; row <= end; ++row) {
-				readEntry(row, bank, cat, subcat, date, sign, amt);
-				distillDate(date, mn, day, yr);
-				if (yr == userYr && mn == userMn && sign == 1) {
-					mnInTotal += amt;
-				}
-			}
-
-			cout << "Your total income for " << userMn << "/" << userYr << " is $" << mnInTotal << endl;
-
-			ins.clear();
-			ins.seekg(0, ios::beg);
-
-			//Calculate total monthly spending
-			double mnOutTotal = 0;
-
-			for (int row = 1; row <= end; ++row) {
-				readEntry(row, bank, cat, subcat, date, sign, amt);
-				distillDate(date, mn, day, yr);
-				if (yr == userYr && mn == userMn && sign == -1) {
-					mnOutTotal += amt;
-				}
-			}
-
-			cout << "Your total spending for " << userMn << "/" << userYr << " is $" << mnOutTotal << endl;
-
-			ins.clear();
-			ins.seekg(0, ios::beg);
-
+			//Calculate total monthly income & Calculate total monthly spending
 			//Calculate monthly spending by category
 			//Variables for monthly category totals
 			//To add a new category, add a variable mnCategory here and add an else if below.
-			double mnHousing = 0, mnFood = 0, mnUtilities = 0, mnHousehold = 0, mnMedical = 0;
+			double mnInTotal = 0, mnOutTotal = 0, mnHousing = 0, mnFood = 0;
+			double mnUtilities = 0, mnHousehold = 0, mnMedical = 0;
 
 			for (int row = 1; row <= end; ++row) {
 				readEntry(row, bank, cat, subcat, date, sign, amt);
 				distillDate(date, mn, day, yr);
+				
+				if (yr == userYr && mn == userMn && sign == 1) { mnInTotal += amt; } 
+				if (yr == userYr && mn == userMn && sign == -1) { mnOutTotal += amt; }
 				if (yr == userYr && mn == userMn && sign == -1) {
 					if (cat == "Housing") {
 						mnHousing += amt;
-					}
-					else if (cat == "Food") {
+					} else if (cat == "Food") {
 						mnFood += amt;
-					}
-					else if (cat == "Utilities") {
+					} else if (cat == "Utilities") {
 						mnUtilities += amt;
-					}
-					else if (cat == "Household") {
+					} else if (cat == "Household") {
 						mnHousehold += amt;
-					}
-					else if (cat == "Medical") {
+					} else if (cat == "Medical") {
 						mnMedical += amt;
 					}
 				}
 			}
 
+			cout << "Your total income for " << userMn << "/" << userYr << " is $" << mnInTotal << endl;
+			cout << "Your total spending for " << userMn << "/" << userYr << " is $" << mnOutTotal << endl;
 			cout << "Monthly spending by category is: " << endl;
 			cout << "Housing: $" << mnHousing << endl
 				<< "Food: $" << mnFood << endl
