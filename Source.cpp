@@ -95,9 +95,7 @@ void readEntry(int row);
 //Extract month, day, and year from MMDDYYYY
 void distillDate(int date) {
 
-	int mn = 0;
-	int day = 0;
-	int yr = 0;
+	int mn = 0, day = 0, yr = 0;
 
 	//Extract month from date by dividing by 10E6 and truncating (int division)
 	mn = date / 1000000;
@@ -199,11 +197,7 @@ int main()
 			//Calculate monthly spending by category
 			//Variables for monthly category totals
 			//To add a new category, add a variable mnCategory here and add an else if below.
-			double mnHousing = 0;
-			double mnFood = 0;
-			double mnUtilities = 0;
-			double mnHousehold = 0;
-			double mnMedical = 0;
+			double mnHousing = 0, mnFood = 0, mnUtilities = 0, mnHousehold = 0, mnMedical = 0;
 
 			for (int row = 1; row <= end; ++row) {
 				readEntry(row);
@@ -282,11 +276,7 @@ int main()
 
 			//Calculate yearly spending by category
 			//Variables for yearly category totals; to add a new category, add a variable yrCategory here and add an else if below.
-			double yrHousing = 0;
-			double yrFood = 0;
-			double yrUtilities = 0;
-			double yrHousehold = 0;
-			double yrMedical = 0;
+			double yrHousing = 0, yrFood = 0, yrUtilities = 0, yrHousehold = 0, yrMedical = 0;
 
 			for (int row = 1; row <= end; ++row) {
 				readEntry(row);
@@ -377,11 +367,7 @@ int main()
 
 			//Calculate custom spending by category
 			//Variables for custom category totals; to add a new category, add a variable yrCategory here and add an else if below.
-			double tsHousing = 0;
-			double tsFood = 0;
-			double tsUtilities = 0;
-			double tsHousehold = 0;
-			double tsMedical = 0;
+			double tsHousing = 0, tsFood = 0, tsUtilities = 0, tsHousehold = 0, tsMedical = 0;
 
 			for (int row = 1; row <= end; ++row) {
 				readEntry(row);
@@ -596,9 +582,7 @@ int main()
 		//Calculate current bank account balance(s)
 		//To add another bank add another double variable below
 		if (userChoice == 6) {
-			double balance_Citi = 0;
-			double balance_WF = 0;
-			double balance_TCF = 0;
+			double balance_Citi = 0, balance_WF = 0, balance_TCF = 0;
 
 			for (int row = 1; row <= end; ++row) {
 				readEntry(row);
@@ -621,13 +605,9 @@ int main()
 		//Calculate current bank account balance(s)
 		//To add another bank add another double variable below
 		if (userChoice == 7) {
-			double balance_Citi = 0;
-			double balance_WF = 0;
-			double balance_TCF = 0;
+			double balance_Citi = 0, balance_WF = 0, balance_TCF = 0;
 
-			double userMonth;
-			double userDay;
-			double userYear;
+			double userMonth, userDay, userYear;
 
 			cout << "Input your desired date as MM/DD/YYYY" << endl;
 			cin >> userMonth >> skip >> userDay >> skip >> userYear;
