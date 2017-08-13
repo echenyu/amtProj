@@ -25,19 +25,19 @@ using namespace std;
 
 //Translate from MM/DD/YYYY to MMDDYYYY
 int interpretDate(string origDate) {
-	int date = 0;
+	unsigned int date = 0;
 
 	//-48 to get integer values from ASCII assignments
-	char charM1 = (int)origDate[0] - 48;
-	char charM2 = (int)origDate[1] - 48;
+	unsigned int charM1 = origDate[0] - 48;
+	unsigned int charM2 = origDate[1] - 48;
 
-	char charD1 = (int)origDate[3] - 48;
-	char charD2 = (int)origDate[4] - 48;
+	unsigned int charD1 = origDate[3] - 48;
+	unsigned int charD2 = origDate[4] - 48;
 
-	char charY1 = (int)origDate[6] - 48;
-	char charY2 = (int)origDate[7] - 48;
-	char charY3 = (int)origDate[8] - 48;
-	char charY4 = (int)origDate[9] - 48;
+	unsigned int charY1 = origDate[6] - 48;
+	unsigned int charY2 = origDate[7] - 48;
+	unsigned int charY3 = origDate[8] - 48;
+	unsigned int charY4 = origDate[9] - 48;
 
 	date = (charM1 * 10E6) + (charM2 * 10E5) + (charD1 * 10E4) + (charD2 * 10E3)
 		+ (charY1 * 10E2) + (charY2 * 100) + (charY3 * 10) + charY4;
@@ -118,7 +118,7 @@ int main()
 	while (userChoice != 0) {
 
 		//Open document "ledger.csv" wtih input stream ins
-		ins.open("ledger_for_L.csv");
+		ins.open("ledger_for_LV.csv");
 
 		//Check to see if file has opened
 		if (!ins.is_open()) {
@@ -676,5 +676,6 @@ void readEntry(int row) {
 
 	date = interpretDate(origDate);
 	sign = interpretSign(origDW);
+
 	return;
 }
